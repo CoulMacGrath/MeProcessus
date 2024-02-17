@@ -32,7 +32,8 @@ html {
     width: 100%;
     height: 100vh;
     overflow-y: hidden;
-    background-color: tomato;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(333deg, rgba(0, 0, 0, 1) 35%, rgba(255, 255, 255, 1) 100%);
   }
   &_content {
     display: flex;
@@ -46,6 +47,6 @@ html {
 }
 
 .logo-wrapper {
- justify-content: center;
+  justify-content: left;
 }
 </style>

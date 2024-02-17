@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import AuthView from '../views/AuthView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegView from '../views/RegView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -12,6 +13,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+
     {
       path: '/about',
       name: 'about',
@@ -21,7 +23,7 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthView,
-      children:[
+      children: [
         {
           path: 'login',
           name: 'Login',
@@ -35,6 +37,17 @@ const router = createRouter({
       ]
     }
   ]
+})
+import { useCounterStore } from '@/stores/user/auth.ts'
+import { ref } from 'vue'
+router.beforeEach(async (to, from, next) => {
+  const { checkAuth } = useCounterStore()
+  const isAuthenticated = await checkAuth()
+
+  console.log(isAuthenticated);
+
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else next()
 })
 
 export default router
